@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
 
@@ -8,12 +6,36 @@ return {
 
   -- == Examples of Adding Plugins ==
 
-  "andweeb/presence.nvim",
+  -- "andweeb/presence.nvim",
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "BufRead",
+  --   config = function() require("lsp_signature").setup() end,
+  -- },
+
   {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
   },
+
+  { "folke/neodev.nvim", enabled = false },
+  { "kevinhwang91/nvim-ufo", enabled = false },
+  { "NMAC427/guess-indent.nvim", enabled = false },
 
   -- == Examples of Overriding Plugins ==
 
@@ -81,5 +103,25 @@ return {
         Rule("a", "a", "-vim")
       )
     end,
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function() vim.opt_local.relativenumber = true end,
+        },
+      },
+      window = {
+        position = "right",
+      },
+    },
+  },
+
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function() require("supermaven-nvim").setup {} end,
   },
 }
